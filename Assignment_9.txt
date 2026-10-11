@@ -1,0 +1,33 @@
+import csv
+import json
+
+def csv_to_json(csv_file_path, json_file_path):
+    data = []
+    
+    # Read the CSV file and convert rows to dictionaries
+    with open(csv_file_path, mode='r', encoding='utf-8') as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+        for row in csv_reader:
+            data.append(row)
+            
+    # Write the dictionary list to a JSON file
+    with open(json_file_path, mode='w', encoding='utf-8') as json_file:
+        json.dump(data, json_file, indent=4)
+        
+    print(f"Successfully converted '{csv_file_path}' to '{json_file_path}'.")
+
+# Example usage:
+if __name__ == "__main__":
+    csv_file_path = "input.csv"
+    json_file_path = "output.json"
+    
+    # Optional: Create a sample CSV file to test immediately
+    sample_csv_content = """id,name,age
+1,John Doe,30
+2,Jane Smith,25
+3,Bob Johnson,40"""
+    with open(csv_file_path, "w", encoding="utf-8") as f:
+        f.write(sample_csv_content)
+
+    # Run the conversion
+    csv_to_json(csv_file_path, json_file_path)
